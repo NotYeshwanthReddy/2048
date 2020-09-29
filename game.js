@@ -3,7 +3,7 @@ let grid;
 let grid_new;
 let score = 0;
 let dragging = false;
-let mouse_position;
+let mouse_position = (0, 0);
 
 
 function isGameWon() {
@@ -183,39 +183,44 @@ function keyPressed() {  // i.e evrytime i press a key!
     } // if played you can do these all opearations
 }
 
-function onMouseDown() {
+function mousePressed() {
     dragging = true;
-    mouse_position = (mouseX, mouseY)
-    console.log("Mouse Down");
+    mouse_position = [mouseX, mouseY];
+    // console.log("Mouse Down");
+    console.log(mouse_position);
 }
 
-function onMouseUp() {
-    console.log("Mouse Up", played, dragging);
+function mouseReleased() {
     let played = true;
     let flipped = false;
     let rotated = false;
+    // console.log("Mouse Up", played, dragging);
     if (dragging) {
         dragging = false;
-        new_mouse_position = (mouseX, mouseY)
+        new_mouse_position = [mouseX, mouseY]
         if (Math.abs(mouse_position[0] - new_mouse_position[0]) >= Math.abs(mouse_position[1] - new_mouse_position[1])) {
             // Move left of right
-            if (mouse_position[0] - new_mouse_position[0] > 0) {
-                grid = transposeGrid(grid, 1);
-                rotated = true;
-            } else {
+            if (mouse_position[0] - new_mouse_position[0] > 0) { // Left
                 grid = transposeGrid(grid, 1);
                 grid = flipGrid(grid);
                 rotated = true;
                 flipped = true;
+                console.log("Move Left")
+            } else { // Right
+                grid = transposeGrid(grid, 1);
+                rotated = true;
+                console.log("Move Right")
             }
         }
         else {
+            console.log(Math.abs(mouse_position[0] - new_mouse_position[0]))
             // Move Up or Down
-            if (mouse_position[1] - mouse_position[1] > 0) {
-                console.log("Down");
-            } else {
+            if (mouse_position[1] - new_mouse_position[1] > 0) {
                 grid = flipGrid(grid);
                 flipped = true;
+                console.log("Move Up")
+            } else {
+                console.log("Move Down");
             }
         }
     }
@@ -224,18 +229,13 @@ function onMouseUp() {
         for (let i = 0; i < 4; i++) {
             grid[i] = operate(grid[i]);
         }
-
         let changed = compare(past, grid);
-
         if (flipped) {
             grid = flipGrid(grid);
         }
-
         if (rotated) {
             grid = transposeGrid(grid, -1);
         }
-
-
         if (changed) {
             addNumber();
         }
@@ -244,7 +244,6 @@ function onMouseUp() {
         if (gameover) {
             console.log("GAME OVER!");
         }
-
         let gamewon = isGameWon();
         if (gamewon) {
             console.log("GAME WON!");
