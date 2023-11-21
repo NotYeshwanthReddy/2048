@@ -1,7 +1,6 @@
-# 2048 game
+# [2048 game](https://notyeshwanthreddy.github.io/2048/)
 ------------------------------------------------------
-It's a normal 2048 game implemented in Javascript and can be played using arrow keys.
+Classic 2048 game implemented in Javascript. Try it out [here..!](https://notyeshwanthreddy.github.io/2048/)
 
 
-### UI :
-<img src="./UI.png" alt="2048 Game UI" width="400"/>
+[![image](https://github.com/NotYeshwanthReddy/2048/assets/31570514/e9b929ee-ee19-4b77-8271-bfac8a969fde)](https://notyeshwanthreddy.github.io/2048/)
